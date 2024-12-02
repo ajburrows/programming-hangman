@@ -18,6 +18,7 @@ main {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  max-width: 600px;
 }
 
 header {
@@ -32,6 +33,7 @@ header > h3 {
   color: #8E8E8E;
   font-weight: 500;
   max-width: 650px;
+  margin-bottom: 0px;
 }
 
 section.game-status {
@@ -65,8 +67,8 @@ section.game-status > p {
   width: fit-content;
   padding: 5px;
   border-radius: 5px;
-  font-size: 1rem;
-  margin: 2px;
+  font-size: 1.1rem;
+  margin: 4px;
 }
 
 .language-chips-container{
@@ -74,4 +76,23 @@ section.game-status > p {
   flex-wrap: wrap;
   justify-content: center;
   max-width: 65%;
+}
+
+.word-container{
+  display: flex;
+  margin-top: 30px;
+}
+
+.letter{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #323232;
+  color: #F9F4DA;
+  min-height: 50px;
+  min-width: 50px;
+  margin: 3px;
+  border-bottom: 2px solid #F9F4DA;
+  border-radius: 1px;
+  font-size: 24px;
 }

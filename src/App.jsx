@@ -4,6 +4,7 @@ import { languages } from "./languages"
 import { useState } from "react"
 
 export default function App(){
+  const [currentWord, setCurrentWord] = useState("react")
 
   const languageChips = languages.map(langObj => 
     <LanguageChip 
@@ -14,6 +15,10 @@ export default function App(){
     />
   )
 
+  console.log(currentWord)
+  const letterSpans = currentWord.split("").map((letter, index) => 
+    <span className="letter" key={index}>{letter.toUpperCase()}</span>
+  )
   return (
     <main>
       <Header />
@@ -23,6 +28,9 @@ export default function App(){
       </section>
       <section className="language-chips-container">
         {languageChips}
+      </section>
+      <section className="word-container">
+        {letterSpans}
       </section>
     </main>
   )
