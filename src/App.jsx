@@ -5,6 +5,7 @@ import { useState } from "react"
 
 export default function App(){
   const [currentWord, setCurrentWord] = useState("react")
+  const alphabet = "abcdefghijklmnopqrstuvwxyz"
 
   const languageChips = languages.map(langObj => 
     <LanguageChip 
@@ -19,6 +20,11 @@ export default function App(){
   const letterSpans = currentWord.split("").map((letter, index) => 
     <span className="letter" key={index}>{letter.toUpperCase()}</span>
   )
+
+  const keyboardButtons = alphabet.split("").map(letter => 
+    <button className="keyboard-button" key={letter.toUpperCase()} onClick={() => console.log(letter.toUpperCase())}>{letter.toUpperCase()}</button>
+  )
+
   return (
     <main>
       <Header />
@@ -31,6 +37,9 @@ export default function App(){
       </section>
       <section className="word-container">
         {letterSpans}
+      </section>
+      <section className="keyboard">
+        {keyboardButtons}
       </section>
     </main>
   )
