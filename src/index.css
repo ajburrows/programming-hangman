@@ -13,6 +13,13 @@ body {
     justify-content: center;
 }
 
+main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 header {
   text-align: center;
 }
@@ -37,6 +44,7 @@ section.game-status {
 
   border-radius: 10px;
   padding: 10px;
+  width: 100%;
 
   margin-block: 50px;
 }
@@ -50,4 +58,20 @@ section.game-status > h2 {
 section.game-status > p {
   font-size: 1.25rem;
   margin: 5px;
+}
+
+.language-chip {
+  display: flex;
+  width: fit-content;
+  padding: 5px;
+  border-radius: 5px;
+  font-size: 1rem;
+  margin: 2px;
+}
+
+.language-chips-container{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: 65%;
 }
