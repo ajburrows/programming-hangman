@@ -3,12 +3,13 @@ import LanguageChip from "./components/LanguageChip"
 import { languages } from "./languages"
 import { useState } from "react"
 import { clsx } from "clsx"
-import { getFarewellText } from "./utils"
+import { getFarewellText, getRandomWord } from "./utils"
 
 export default function App(){
   // States
-  const [currentWord, setCurrentWord] = useState("react")
+  const [currentWord, setCurrentWord] = useState(getRandomWord())
   const [guessedLetters, setGuessedLetters] = useState([])
+
 
   // Derived Values
   const wrongGuessCount = guessedLetters.filter(letter => !currentWord.includes(letter.toLowerCase())).length
@@ -46,7 +47,7 @@ export default function App(){
   )
 
   const letterSpans = currentWord.split("").map((letter, index) => 
-      <span className="letter" key={index}>{guessedLetters.includes(letter.toUpperCase()) ? letter.toUpperCase() : null}</span>
+      <span className="letter" key={index}>{guessedLetters.includes(letter.toUpperCase()) || isGameOver ? letter.toUpperCase() : null}</span>
   )
 
   const keyboardButtons = alphabet.split("").map(letter => {
@@ -89,15 +90,13 @@ export default function App(){
     if (lastGuessIncorrect){
       return  <div className="message-box farewell">
                 <h2>Farewell!</h2>
-                <p>Hello</p>
+                <p>{getFarewellText(languages[wrongGuessCount-1].name)}</p>
               </div>
     }
     else return null
   }
 
-  console.log(languages)
-  console.log(wrongGuessCount)
-
+  
   return (
     <main>
 
@@ -122,7 +121,7 @@ export default function App(){
         role="status"
       >
         <p>
-          {currentWord.includes(lastGuess.toLowerCase())
+          {currentWord.includes(lastGuess)
             ? `Correct! The letter ${lastGuess} is in the word.`
             : `Sorry, the letter ${lastGuess} is not in the word.`
           }
