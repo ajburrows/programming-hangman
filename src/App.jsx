@@ -3,6 +3,7 @@ import LanguageChip from "./components/LanguageChip"
 import { languages } from "./languages"
 import { useState } from "react"
 import { clsx } from "clsx"
+import { getFarewellText } from "./utils"
 
 export default function App(){
   // States
@@ -14,6 +15,9 @@ export default function App(){
   const isGameWon = currentWord.split("").every(letter => guessedLetters.includes(letter.toUpperCase()))
   const isGameLost = wrongGuessCount >= languages.length - 1
   const isGameOver = isGameWon || isGameLost
+  const lastGuess = guessedLetters[guessedLetters.length - 1]
+  const lastGuessIncorrect = lastGuess && !currentWord.split("").includes(lastGuess.toLowerCase())
+
 
   // Static Values
   const alphabet = "abcdefghijklmnopqrstuvwxyz"
@@ -60,14 +64,12 @@ export default function App(){
         className={className}
         key={letter.toUpperCase()} 
         onClick={() => addGuessedLetter(letter.toUpperCase())}
+        disabled={isGameOver}
       >
           {letter.toUpperCase()}
       </button>
     )
   })
-
-  console.log(isGameWon)
-  console.log(isGameLost)
 
   const messageRendered = () => {
     if (isGameWon === true){
@@ -82,8 +84,17 @@ export default function App(){
                 <p>You lose! Better start learning Assembly!</p>
               </div>
     }
+    if (lastGuessIncorrect){
+      return  <div className="message-box farewell">
+                <h2>Farewell!</h2>
+                <p>Hello</p>
+              </div>
+    }
     else return null
   }
+
+  console.log(languages)
+  console.log(wrongGuessCount)
 
   return (
     <main>
