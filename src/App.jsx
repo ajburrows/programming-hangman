@@ -65,6 +65,8 @@ export default function App(){
         key={letter.toUpperCase()} 
         onClick={() => addGuessedLetter(letter.toUpperCase())}
         disabled={isGameOver}
+        aria-disabled={isGameOver || guessedLetters.includes(letter)}
+        aria-label={`Letter ${letter}`}
       >
           {letter.toUpperCase()}
       </button>
@@ -98,19 +100,43 @@ export default function App(){
 
   return (
     <main>
+
       <Header />
-      <section className="game-status">
+
+      <section aria-live="polite" role="status" className="game-status">
         {messageRendered()}
       </section>
+      
       <section className="language-chips-container">
         {languageChips}
       </section>
+
       <section className="word-container">
         {letterSpans}
       </section>
+
+      {/*Combined visually hidden aria-live region for status updates*/}
+      <section
+        className="sr-only"
+        aria-live="polite"
+        role="status"
+      >
+        <p>
+          {currentWord.includes(lastGuess.toLowerCase())
+            ? `Correct! The letter ${lastGuess} is in the word.`
+            : `Sorry, the letter ${lastGuess} is not in the word.`
+          }
+          You have {languages.length - wrongGuessCount - 1} attempts left.
+        </p>
+        <p>Current word: {currentWord.split("").map(letter =>
+          guessedLetters.includes(letter) ? letter : "blank").join(" ")}
+        </p>
+      </section>
+
       <section className="keyboard">
         {keyboardButtons}
       </section>
+
       { isGameOver ? <button className="new-game">New Game</button> : null }
     </main>
   )

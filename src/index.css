@@ -187,8 +187,6 @@ span.language-chip.lost::before {
   background-color: #10A95B;
 }
 
-
-
 button.new-game {
     background-color: #11B5E5;
     border: 1px solid #D7D7D7;
@@ -199,4 +197,16 @@ button.new-game {
     display: block;
     margin-inline: auto;
     cursor: pointer;
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
 }
