@@ -4,6 +4,7 @@ import { languages } from "./languages"
 import { useState } from "react"
 import { clsx } from "clsx"
 import { getFarewellText, getRandomWord } from "./utils"
+import Confetti from "react-confetti"
 
 export default function App(){
   // States
@@ -19,9 +20,15 @@ export default function App(){
   const lastGuess = guessedLetters[guessedLetters.length - 1]
   const lastGuessIncorrect = lastGuess && !currentWord.split("").includes(lastGuess.toLowerCase())
 
+  console.log(currentWord)
 
   // Static Values
   const alphabet = "abcdefghijklmnopqrstuvwxyz"
+
+  function restartGame(){
+    setCurrentWord(getRandomWord())
+    setGuessedLetters([])
+  }
 
   function addGuessedLetter(letter) {
     setGuessedLetters(prevGuessedLetters => {
@@ -99,6 +106,7 @@ export default function App(){
   
   return (
     <main>
+      {isGameWon ? <Confetti /> : null}
 
       <Header />
 
@@ -136,7 +144,7 @@ export default function App(){
         {keyboardButtons}
       </section>
 
-      { isGameOver ? <button className="new-game">New Game</button> : null }
+      { isGameOver ? <button className="new-game" onClick={() => restartGame()}>New Game</button> : null }
     </main>
   )
 }
