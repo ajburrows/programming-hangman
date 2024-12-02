@@ -4,6 +4,6 @@ export default function LanguageChip(props) {
         color: props.color
     }
     return(
-        <span className="language-chip" style={style}>{props.name}</span>
+        <span className={props.className} style={style}>{props.name}</span>
     )
 }

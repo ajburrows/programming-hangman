@@ -146,3 +146,22 @@ button.new-game {
 .right-letter {
   background-color: #10A95B;
 }
+
+span.language-chip{
+  position: relative
+}
+
+span.language-chip.lost::before {
+    content: "💀";
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    font-size: 0.85rem;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    border-radius: 5px;
+}

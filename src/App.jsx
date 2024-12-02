@@ -7,6 +7,10 @@ import { clsx } from "clsx"
 export default function App(){
   const [currentWord, setCurrentWord] = useState("react")
   const [guessedLetters, setGuessedLetters] = useState([])
+
+  const wrongGuessCount = guessedLetters.filter(letter => !currentWord.includes(letter.toLowerCase())).length
+  console.log(wrongGuessCount)
+
   const alphabet = "abcdefghijklmnopqrstuvwxyz"
 
   function addGuessedLetter(letter) {
@@ -16,16 +20,23 @@ export default function App(){
       return Array.from(letterSet)
     })
   }
-  const languageChips = languages.map(langObj => 
-    <LanguageChip 
-      key={langObj.name}
-      name={langObj.name}
-      backgroundColor={langObj.backgroundColor}
-      color={langObj.color}
-    />
+
+
+  const languageChips = languages.map((langObj, index) => {
+    const style = {
+        backgroundColor: langObj.backgroundColor,
+        color: langObj.color
+    }
+    const className = clsx({
+      "language-chip": true,
+      "lost" : index < wrongGuessCount
+    })
+
+    return(
+        <span key={index} className={className} style={style}>{langObj.name}</span>
+    )}
   )
 
-  console.log(guessedLetters)
   const letterSpans = currentWord.split("").map((letter, index) => 
       <span className="letter" key={index}>{guessedLetters.includes(letter.toUpperCase()) ? letter.toUpperCase() : null}</span>
   )
