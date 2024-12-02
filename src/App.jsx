@@ -27,7 +27,7 @@ export default function App(){
 
   console.log(guessedLetters)
   const letterSpans = currentWord.split("").map((letter, index) => 
-    <span className="letter" key={index}>{letter.toUpperCase()}</span>
+      <span className="letter" key={index}>{guessedLetters.includes(letter.toUpperCase()) ? letter.toUpperCase() : null}</span>
   )
 
   const keyboardButtons = alphabet.split("").map(letter => {
