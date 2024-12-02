@@ -5,12 +5,17 @@ import { useState } from "react"
 import { clsx } from "clsx"
 
 export default function App(){
+  // States
   const [currentWord, setCurrentWord] = useState("react")
   const [guessedLetters, setGuessedLetters] = useState([])
 
+  // Derived Values
   const wrongGuessCount = guessedLetters.filter(letter => !currentWord.includes(letter.toLowerCase())).length
-  console.log(wrongGuessCount)
+  const isGameWon = currentWord.split("").every(letter => guessedLetters.includes(letter.toUpperCase()))
+  const isGameLost = wrongGuessCount >= languages.length - 1
+  const isGameOver = isGameWon || isGameLost
 
+  // Static Values
   const alphabet = "abcdefghijklmnopqrstuvwxyz"
 
   function addGuessedLetter(letter) {
@@ -20,7 +25,6 @@ export default function App(){
       return Array.from(letterSet)
     })
   }
-
 
   const languageChips = languages.map((langObj, index) => {
     const style = {
@@ -62,12 +66,30 @@ export default function App(){
     )
   })
 
+  console.log(isGameWon)
+  console.log(isGameLost)
+
+  const messageRendered = () => {
+    if (isGameWon === true){
+      return  <div className="message-box win">
+                <h2>You Win!</h2>
+                <p>Well done!</p>
+              </div>
+    }
+    else if (isGameLost === true){
+      return  <div className="message-box lose">
+                <h2>Game Over!</h2>
+                <p>You lose! Better start learning Assembly!</p>
+              </div>
+    }
+    else return null
+  }
+
   return (
     <main>
       <Header />
       <section className="game-status">
-        <h2>You Win!</h2>
-        <p>Well done!</p>
+        {messageRendered()}
       </section>
       <section className="language-chips-container">
         {languageChips}
@@ -78,7 +100,7 @@ export default function App(){
       <section className="keyboard">
         {keyboardButtons}
       </section>
-      <button className="new-game">New Game</button>
+      { isGameOver ? <button className="new-game">New Game</button> : null }
     </main>
   )
 }
